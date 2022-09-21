@@ -8,52 +8,30 @@ import java.nio.charset.StandardCharsets;
 import static io.qameta.allure.Allure.step;
 
 public class Parent {
-
     @Test
     @Tag("EXTENSION")
     @Epic("@Epic")
     @AllureId("777")
-    @DisplayName("Just Title Example")
-    @Description("That description describes some information about test")
-    @Severity(SeverityLevel.BLOCKER)
+    @DisplayName("This is from the Parent class with test - JUnit5 DisplayName annotation")
+    @Description("@That description describes some information about test")
     @Link(name = "@Link", url = "https://qameta.io")
-    void test1 () {
-        Allure.suite("Suite1 label example");
-
-        step("Arrange", () -> {
-            step("Go here", () -> {
-                step("Take first value");
-            });
-            step("Another point", () -> {
-                step("Take second value");
-            });
+    void test1() {
+        step("Add Suite, Epic, Feature, Story and Links by allure label", () -> {
+            Allure.link("It's a label link", "https://qameta.io");
+            Allure.suite("Suite1 label example");
+            Allure.epic("Epic1 label example");
+            Allure.feature("Feature1 label example");
+            Allure.story("Story1 label example");
         });
-        step("Act", () -> {
-            step("Some actions", () -> {
-                step("First step");
-                step("Second step");
-                step("Looks like we need to attach something", () -> {
-                    textAttachment("Middle", "Some text inside test");
-                });
-
-                Allure.link("It's a link", "https://qameta.io");
-                Allure.link("Another link", "https://qameta.io");
-
-                Allure.epic("Epic1 label example");
-                Allure.feature("Feature1 label example");
-                Allure.story("Story1 label example");
-
-            });
-        });
-        step("Assert", () -> {
-            step("Simple assert of first and second values");
-            textAttachment("Final", "That's all folks!");
+        step("Allure annotations is missed in Child class", () -> {
+            textAttachment("Final", "@AllureId(\"777\")");
+            textAttachment("Final", "@Link(name = \"@Link\", url = \"https://qameta.io\")");
+            textAttachment("Final", "@Description(\"@That description describes some information about test\")");
+            textAttachment("Final", "@Epic(\"@Epic\")");
         });
     }
-
     @Attachment(value = "Annotated attachment [{type}]", type = "text/plain", fileExtension = ".txt")
     public byte[] textAttachment(String type, String content) {
         return content.getBytes(StandardCharsets.UTF_8);
     }
-
 }
