@@ -7,7 +7,7 @@ import java.nio.charset.StandardCharsets;
 
 import static io.qameta.allure.Allure.step;
 
-public class SecondClass {
+public class Parent {
 
     @Test
     @Tag("EXTENSION")
